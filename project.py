@@ -60,8 +60,8 @@ def notch_filter(data, sr, notch_freq=60, Q = 30):
     filtered_data = filtfilt(b,a,data)
     return filtered_data
 
-ictal_data = bandpass_filter(ictal_data, 0.2, 30, 300)
-interictal_data = bandpass_filter(interictal_data, 0.2, 30, 300)
+ictal_data = bandpass_filter(ictal_data, 0.5, 30, 300)
+interictal_data = bandpass_filter(interictal_data, 0.5, 30, 300)
 ictal_data = notch_filter(ictal_data, 300)
 interictal_data = notch_filter(interictal_data, 300)
 
@@ -154,6 +154,22 @@ print(f"Validation accuracy: {accuracy}")
 y_pred = svm_model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Test accuracy: {accuracy}")
+
+
+#evaluating performance:
+import matplotlib.pyplot as plt
+plt.figure(figsize = (8,6))
+plt.scatter(X_train[:,0], X_train[:,1], c=y_train, cmap='viridis', alpha=0.5)
+plt.colorbar(label='Class')
+plt.title('PCA Components Scatter Plot')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.grid(True)
+
+
+
+
+
 
 
 
